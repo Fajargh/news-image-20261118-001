@@ -22,3 +22,10 @@ DST_DIR = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
 
 os.makedirs(DST_DIR, exist_ok=True)
 shutil.copyfile(SRC, os.path.join(DST_DIR, "entry.png"))
+
+# Confirm the output is a real image file within the gate's limits
+# (at most 1 MiB and 1024 by 1024 pixels).
+out_path = os.path.join(DST_DIR, "entry.png")
+size = os.path.getsize(out_path)
+assert size <= 1024 * 1024, f"entry.png too large: {size} bytes"
+print(f"wrote {out_path} ({size} bytes)")
